@@ -11,7 +11,7 @@ adf %>%
   View()
 clean_names(adf)->adf2
 
-
+# air quality trends for ahmedabad
 adf2 %>% 
   mutate(year=date %>% year(),
          month=date %>% month(),
@@ -48,5 +48,6 @@ library(ggplot2)
          width = 10,
          height=6)
   
- 
+
+
   
