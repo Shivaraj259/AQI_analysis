@@ -41,13 +41,29 @@ library(ggplot2)
          caption ="Source: AQI data",x="year",y="mean_values")+
   theme_linedraw()-> plot1
   
-  #to save in pdf format
+  #to save ahmedabad in pdf format
   ggsave("air pollutant trend.pdf",
          plot=plot1,
          units = "in",
          width = 10,
          height=6)
+ 
+#heat map
   
-
-
+  adf4%>%
+    filter(parameter=="co")%>%
+    group_by(week,weekday,month)%>%
+    summarise(meanval=mean(values,na.rm=T))%>%
+    ggplot(aes(x=week,y=weekday,
+               fill = meanval)) +
+    geom_tile() +
+    facet_wrap(~month, scales = "free_x") +
+  
+    # scale_fill_gradient(low = "yellow", high = "red") +
+    scale_fill_gradientn(colours = c("darkgreen", "yellow", "red")) +
+    theme_minimal() +
+    labs(title = "CO heat map",
+         subtitle = "For all cities",
+         x = NULL,
+         y=NULL)
   
